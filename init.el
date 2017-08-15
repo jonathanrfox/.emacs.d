@@ -1,4 +1,5 @@
 ;;emacs config
+;;author: jonathan fox
 
 ;;--------
 ;;packages
@@ -42,6 +43,7 @@
 (blink-cursor-mode -1)
 (global-linum-mode 1)
 (column-number-mode 1)
+(which-function-mode 1)
 ;;(setq window-min-width 80)
 (load-theme 'spacegray t)
 (add-to-list 'default-frame-alist
@@ -59,6 +61,11 @@
 ;;------
 
 (setq ring-bell-function 'ignore)
+
+;;----
+;;tabs
+;;----
+(setq-default indent-tabs-mode nil)
 
 ;;---------
 ;;yes or no
@@ -173,14 +180,26 @@
 ;;org-mode
 ;;--------
 
-(add-hook 'org-mode-hook
-	  (lambda () (org-bullets-mode 1)))
+;; (add-hook 'org-mode-hook
+;; 	  (lambda () (org-bullets-mode 1)))
+
+(setq org-latex-table-caption-above nil)
+;; command above will be: `(setq org-latex-caption-above nil)` in newer version.
+
 (setq org-clock-persist 'history)
+
 (setq org-agenda-files "~/notes/reference.org")
+
 (org-clock-persistence-insinuate)
+
+(require 'ob-mongo)
+(require 'ob-sql-mode)
+
 (org-babel-do-load-languages 'org-babel-load-languages
 			     '((python . t)
 			       (C . t)))
+                               ;; (mongo . t)
+                               ;; (sql-mode . t)))
 
 ;;---------
 ;;helm-mode
@@ -310,7 +329,7 @@
 
 (defun find-config-file ()
   (interactive)
-  (find-file "~/.emacs"))
+  (find-file "~/.emacs.d/init.el"))
 
 (bind-key "C-c o n f" 'find-config-file)
 
