@@ -4,3 +4,5 @@
 # except
 !.gitignore
 !init.el
+!custom.el
+!config.org
