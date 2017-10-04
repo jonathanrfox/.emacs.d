@@ -5,13 +5,11 @@
    user-mail-address "jonathanfox223@gmail.com")
 #+END_SRC
 
-
 * Custom
 #+BEGIN_SRC emacs-lisp
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 #+END_SRC
-
 
 * Init Buffers
 #+BEGIN_SRC emacs-lisp
@@ -23,18 +21,15 @@
 (bind-key "C-c i" 'init-default-buffers)
 #+END_SRC
 
-
 * Info
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'Info-default-directory-list "~/info")
 #+END_SRC
 
-
 * Default Major Mode
 #+BEGIN_SRC emacs-lisp
 (setq-default major-mode 'org-mode)
 #+END_SRC
-
 
 * Cosmetics
 #+BEGIN_SRC emacs-lisp
@@ -45,14 +40,14 @@
 (global-linum-mode 1)
 (column-number-mode 1)
 (which-function-mode 1)
-(nyan-mode 1)
+(visual-line-mode 1)
 (display-time-mode 1)
+(nyan-mode 1)
 (load-theme 'spacegray t)
 (add-to-list 'default-frame-alist
              '(font . "Liberation Mono"))
 ;;(setq window-min-width 80)
 #+END_SRC
-
 
 * Enabled commands
 #+BEGIN_SRC emacs-lisp
@@ -60,24 +55,20 @@
 (put 'upcase-region 'disabled nil)
 #+END_SRC
 
-
 * Sounds
 #+BEGIN_SRC emacs-lisp
 (setq ring-bell-function 'ignore)
 #+END_SRC
-
 
 * Indenting
 #+BEGIN_SRC emacs-lisp
 (setq-default indent-tabs-mode nil)
 #+END_SRC
 
-
 * Yes/No
 #+BEGIN_SRC emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
-
 
 * Highlight Chars
 #+BEGIN_SRC emacs-lisp
@@ -88,19 +79,19 @@
 ;; (add-hook 'python-mode-hook 'my-highlight-settings)
 #+END_SRC
 
-
 * Lorem ipsum
 #+BEGIN_SRC emacs-lisp
 (lorem-ipsum-use-default-bindings)
 #+END_SRC
 
-
 * Movements
 #+BEGIN_SRC emacs-lisp
-(windmove-default-keybindings)
+(bind-key "<left>" 'windmove-left)
+(bind-key "<right>" 'windmove-right)
+(bind-key "<up>" 'windmove-up)
+(bind-key "<down>" 'windmove-down)
 (winner-mode 1)
 #+END_SRC
-
 
 * Text
 #+BEGIN_SRC emacs-lisp
@@ -112,15 +103,12 @@
 ;;                   (setq fill-column 80))))
 #+END_SRC
 
-
 * C Mode
 #+BEGIN_SRC emacs-lisp
 (setq c-default-style "k&r" c-basic-offset 4 tab-width 4)
 #+END_SRC
 
-
 * Cpp Mode
-
 
 * Python Mode
 #+BEGIN_SRC emacs-lisp
@@ -136,16 +124,15 @@
 ;; (setq ein:console-executable "/home/j/.virtualenvs/scienv/bin/ipython")
 #+END_SRC
 
-
 * Java Mode
-
 
 * JS Mode
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
-(setq js2-pretty-multiline-declarations nil)
+(setq js2-pretty-multiline-declarations nil
+      js2-mode-show-parse-errors nil
+      js2-mode-show-strict-warnings nil)
 #+END_SRC
-
 
 * Html Mode
 #+BEGIN_SRC emacs-lisp
@@ -153,40 +140,58 @@
 (add-hook 'sgml-mode-hook 'sgml-electric-tag-pair-mode)
 #+END_SRC
 
-
 * Pretty Lambda
 #+BEGIN_SRC emacs-lisp
 (pretty-lambda-for-modes)
 #+END_SRC
 
-
-* rainbow-mode
+* Rainbow
 #+BEGIN_SRC
 (bind-key "C-c r" 'rainbow-mode)
 #+END_SRC
 
-
-* mutli-term mode
+* Mulitple Cursors
 #+BEGIN_SRC emacs-lisp
+(require 'multiple-cursors)
+(setq mc/always-run-for-all t)
+(bind-key "C-+" 'mc/mark-next-like-this)
+(bind-key "C--" 'mc/mark-previous-like-this)
+(bind-key "C->" 'mc/mark-all-like-this)
+;; (bind-key "" 'mc/mark-all-in-region-regexp)
+;; (bind-key "" 'mc/edit-lines)
+
+#+END_SRC
+
+* Mutli Term
+#+BEGIN_SRC emacs-lisp
+(require 'term)
+
+(defun term-toggle-mode ()
+  "Toggles line-mode from/to char-mode."
+  (interactive)
+  (if (term-in-line-mode)
+      (term-char-mode)
+    (term-line-mode)))
+
+(define-key term-mode-map (kbd "C-c C-j") 'term-toggle-mode)
+(define-key term-mode-map (kbd "C-c C-k") 'term-toggle-mode)
+
+(define-key term-raw-map (kbd "C-c C-j") 'term-toggle-mode)
+(define-key term-raw-map (kbd "C-c C-k") 'term-toggle-mode)
+
 (setq multi-term-program "/bin/bash")
 (bind-key "C-c m t" 'multi-term)
 (bind-key "C-c m n" 'multi-term-next)
 (bind-key "C-c m p" 'multi-term-prev)
 #+END_SRC
 
-
-* org-mode
+* Org
 #+BEGIN_SRC emacs-lisp
-;; (add-hook 'org-mode-hook
-;; 	  (lambda () (org-bullets-mode 1)))
-
+(setq org-src-preserve-indentation 1)
 (setq org-latex-table-caption-above nil)
 ;; command above will be: `(setq org-latex-caption-above nil)` in newer version.
-
 (setq org-clock-persist 'history)
-
 (setq org-agenda-files "~/notes/reference.org")
-
 (org-clock-persistence-insinuate)
 
 (require 'ob-mongo)
@@ -194,11 +199,17 @@
 
 (org-babel-do-load-languages 'org-babel-load-languages
 			     '((python . t)
-			       (C . t)))
-                               ;; (mongo . t)
-                               ;; (sql-mode . t)))
-#+END_SRC
+                               (C . t)))
+;; (mongo . t)
+;; (sql-mode . t)))
 
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+#+END_SRC
 
 * Helm
 #+BEGIN_SRC emacs-lisp
@@ -206,8 +217,9 @@
 (bind-key "M-x" 'helm-M-x)
 (bind-key "C-x C-f" 'helm-find-files)
 (bind-key "C-x M-s" 'helm-swoop)
+(bind-key "C-x M-g" 'helm-do-grep-ag)
+(bind-key "C-c C-<SPC>" 'helm-mark-ring)
 #+END_SRC
-
 
 * Projectile
 #+BEGIN_SRC emacs-lisp
@@ -221,7 +233,6 @@
 
 (bind-key "C-x b" 'cond-switch-to-buffer)
 #+END_SRC
-
 
 * Helm Projectile
 #+BEGIN_SRC emacs-lisp
@@ -238,13 +249,11 @@
 ;; (bind-key "C-x C-f" 'resolve-find-file)
 #+END_SRC
 
-
 * Yasnippet
 #+BEGIN_SRC emacs-lisp
 (require 'yasnippet)
 (yas-global-mode 1)
 #+END_SRC
-
 
 * Ace
 #+BEGIN_SRC emacs-lisp
@@ -258,18 +267,16 @@
 (bind-key "C-x w" 'ace-swap-window)
 #+END_SRC
 
-
 * Dired
 #+BEGIN_SRC emacs-lisp
 (setq dired-listing-switches "--group-directories-first -al")
-
+(setq dired-dwim-target t)
 (add-hook 'dired-mode-hook
 	  (lambda ()
 	    (dired-hide-details-mode 1)))
 #+END_SRC
 
-
-* Ibuffer-mode
+* Ibuffer
 #+BEGIN_SRC emacs-lisp
 (setq my-filter-groups
       '(("org" (mode . org-mode))
@@ -310,19 +317,17 @@
 (bind-key "C-x C-b" 'refresh-ibuffer)
 #+END_SRC
 
-
+* Magit
+#+BEGIN_SRC emacs-lisp
+(bind-key "C-x G" 'magit-status)
+#+END_SRC
 * Key Bindings
 #+BEGIN_SRC emacs-lisp
 (bind-key "C-?" 'backward-delete-char)
 (bind-key "M-?" 'backward-kill-word)
 (bind-key "C-c d w" 'delete-trailing-whitespace)
 (bind-key "C-c p k" 'describe-personal-keybindings)
-
-(defun insert-four-spaces ()
-  (interactive)
-  (insert "    "))
-
-(bind-key "C-c s" 'insert-four-spaces)
+(bind-key "C-c s" 'switch-to-buffer)
 
 (defun find-config-file ()
   (interactive)
