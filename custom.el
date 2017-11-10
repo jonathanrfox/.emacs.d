@@ -26,5 +26,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(hc-trailing-whitespace ((t (:background "#ebcb8b")))))
+ '(font-lock-doc-face ((t (:foreground "pink1"))))
+ '(hc-trailing-whitespace ((t (:background "#ebcb8b"))))
+ '(helm-selection ((t (:inherit highlight :background "purple" :foreground "white smoke" :weight bold)))))
  ;;:background "#f2f1f0" :foreground "#4c4c4c"

@@ -321,6 +321,15 @@
 #+BEGIN_SRC emacs-lisp
 (bind-key "C-x G" 'magit-status)
 #+END_SRC
+* Paredit
+#+BEGIN_SRC emacs-lisp
+(bind-key "C-c k" 'paredit-kill)
+#+END_SRC
+* Mode Hooks
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook 'subword-mode)
+(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+#+END_SRC
 * Key Bindings
 #+BEGIN_SRC emacs-lisp
 (bind-key "C-?" 'backward-delete-char)
@@ -363,4 +372,5 @@
   (save-buffer))
 
 (bind-key "C-x C-s" 'delete-trailing-whitespace-and-save-buffer)
+
 #+END_SRC
