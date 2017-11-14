@@ -5,6 +5,16 @@
    user-mail-address "jonathanfox223@gmail.com")
 #+END_SRC
 
+* Startup
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t)
+#+END_SRC
+
+* Scratch
+#+BEGIN_SRC emacs-lisp
+(unkillable-scratch)
+#+END_SRC
+
 * Custom
 #+BEGIN_SRC emacs-lisp
 (setq custom-file "~/.emacs.d/custom.el")
@@ -28,7 +38,7 @@
 
 * Default Major Mode
 #+BEGIN_SRC emacs-lisp
-(setq-default major-mode 'org-mode)
+;; (setq-default major-mode 'org-mode)
 #+END_SRC
 
 * Cosmetics
@@ -42,13 +52,20 @@
 (which-function-mode 1)
 (visual-line-mode 1)
 (display-time-mode 1)
-(nyan-mode 1)
-(load-theme 'spacegray t)
-(add-to-list 'default-frame-alist
-             '(font . "Liberation Mono"))
-;;(setq window-min-width 80)
+(global-hl-line-mode 1)
+;; (nyan-mode 1)
 #+END_SRC
 
+* Font
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'default-frame-alist
+             '(font . "Monospace"))
+#+END_SRC
+
+* Theme
+#+BEGIN_SRC emacs-lisp
+(load-theme 'spacegray t)
+#+END_SRC
 * Enabled commands
 #+BEGIN_SRC emacs-lisp
 (put 'downcase-region 'disabled nil)
@@ -191,11 +208,11 @@
 (setq org-latex-table-caption-above nil)
 ;; command above will be: `(setq org-latex-caption-above nil)` in newer version.
 (setq org-clock-persist 'history)
-(setq org-agenda-files "~/notes/reference.org")
+(setq org-agenda-files "~/Dropbox/notes/reference.org")
 (org-clock-persistence-insinuate)
 
-(require 'ob-mongo)
-(require 'ob-sql-mode)
+;; (require 'ob-mongo)
+;; (require 'ob-sql-mode)
 
 (org-babel-do-load-languages 'org-babel-load-languages
 			     '((python . t)

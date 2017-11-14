@@ -3,6 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ ;; '(custom-safe-themes
+ ;;   (quote
+ ;;    ("f26c46ec3ac5737f7a236aeff395d15bc90c631908548b061d9855c2f310947f" default)))
  '(org-latex-default-packages-alist
    (quote
     (("AUTO" "inputenc" t)
