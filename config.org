@@ -1,10 +1,3 @@
-* Admin
-#+BEGIN_SRC emacs-lisp
-  (setq
-   user-full-name "Jonathan Fox"
-   user-mail-address "jonathanfox223@gmail.com")
-#+END_SRC
-
 * Startup
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
@@ -70,6 +63,7 @@
 #+BEGIN_SRC emacs-lisp
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 #+END_SRC
 
 * Sounds
@@ -208,7 +202,7 @@
 (setq org-latex-table-caption-above nil)
 ;; command above will be: `(setq org-latex-caption-above nil)` in newer version.
 (setq org-clock-persist 'history)
-(setq org-agenda-files "~/Dropbox/notes/reference.org")
+(setq org-agenda-files "~/Dropbox/orgfiles/")
 (org-clock-persistence-insinuate)
 
 ;; (require 'ob-mongo)
