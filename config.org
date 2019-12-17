@@ -1,272 +1,9 @@
-* Startup
-#+BEGIN_SRC emacs-lisp
-(setq inhibit-startup-message t)
-#+END_SRC
-
-* Scratch
-#+BEGIN_SRC emacs-lisp
-(unkillable-scratch)
-#+END_SRC
-
-* Custom
-#+BEGIN_SRC emacs-lisp
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-#+END_SRC
-
-* Init Buffers
-#+BEGIN_SRC emacs-lisp
-(defun init-default-buffers ()
-  (interactive)
-  (ibuffer)
-  (multi-term))
-
-(bind-key "C-c i" 'init-default-buffers)
-#+END_SRC
-
-* Info
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'Info-default-directory-list "~/info")
-#+END_SRC
-
-* Default Major Mode
-#+BEGIN_SRC emacs-lisp
-;; (setq-default major-mode 'org-mode)
-#+END_SRC
-
-* Cosmetics
-#+BEGIN_SRC emacs-lisp
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(blink-cursor-mode -1)
-(global-linum-mode 1)
-(column-number-mode 1)
-(which-function-mode 1)
-(visual-line-mode 1)
-(display-time-mode 1)
-(global-hl-line-mode 1)
-;; (nyan-mode 1)
-#+END_SRC
-
-* Font
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'default-frame-alist
-             '(font . "Monospace"))
-#+END_SRC
-
-* Theme
-#+BEGIN_SRC emacs-lisp
-(load-theme 'spacegray t)
-#+END_SRC
-* Enabled commands
-#+BEGIN_SRC emacs-lisp
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
-#+END_SRC
-
-* Sounds
-#+BEGIN_SRC emacs-lisp
-(setq ring-bell-function 'ignore)
-#+END_SRC
-
-* Indenting
-#+BEGIN_SRC emacs-lisp
-(setq-default indent-tabs-mode nil)
-#+END_SRC
-
-* Yes/No
-#+BEGIN_SRC emacs-lisp
-(defalias 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
-
-* Highlight Chars
-#+BEGIN_SRC emacs-lisp
-;; (require 'highlight-chars)
-;; (defun my-highlight-settings ()
-;;   (if (not hc-highlight-trailing-whitespace-p)
-;;       (hc-toggle-highlight-trailing-whitespace)))
-;; (add-hook 'python-mode-hook 'my-highlight-settings)
-#+END_SRC
-
-* Lorem ipsum
-#+BEGIN_SRC emacs-lisp
-(lorem-ipsum-use-default-bindings)
-#+END_SRC
-
-* Movements
-#+BEGIN_SRC emacs-lisp
-(bind-key "<left>" 'windmove-left)
-(bind-key "<right>" 'windmove-right)
-(bind-key "<up>" 'windmove-up)
-(bind-key "<down>" 'windmove-down)
-(winner-mode 1)
-#+END_SRC
-
-* Text
-#+BEGIN_SRC emacs-lisp
-(setq sentence-end-double-space nil)
-;; (add-hook 'text-mode-hook
-;;               (lambda ()
-;;                 (when (y-or-n-p "Auto Fill mode? ")
-;;                   (turn-on-auto-fill)
-;;                   (setq fill-column 80))))
-#+END_SRC
-
-* C Mode
-#+BEGIN_SRC emacs-lisp
-(setq c-default-style "k&r" c-basic-offset 4 tab-width 4)
-#+END_SRC
-
-* Cpp Mode
-
-* Python Mode
-#+BEGIN_SRC emacs-lisp
-(setq python-command "python3.6")
-;; (add-hook 'python-mode-hook
-;; 	  (lambda ()
-;; 	    (setq python-indent-offset 4)))
-;; (require 'ein)
-;; (require 'ein)
-;; (require 'ein-loaddefs)
-;; (require 'ein-notebook)
-;; (require 'ein-subpackages)
-;; (setq ein:console-executable "/home/j/.virtualenvs/scienv/bin/ipython")
-#+END_SRC
-
-* Java Mode
-
-* JS Mode
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
-(setq js2-pretty-multiline-declarations nil
-      js2-mode-show-parse-errors nil
-      js2-mode-show-strict-warnings nil)
-#+END_SRC
-
-* Html Mode
-#+BEGIN_SRC emacs-lisp
-(add-hook 'sgml-mode-hook 'zencoding-mode)
-(add-hook 'sgml-mode-hook 'sgml-electric-tag-pair-mode)
-#+END_SRC
-
-* Pretty Lambda
-#+BEGIN_SRC emacs-lisp
-(pretty-lambda-for-modes)
-#+END_SRC
-
-* Rainbow
-#+BEGIN_SRC
-(bind-key "C-c r" 'rainbow-mode)
-#+END_SRC
-
-* Mulitple Cursors
-#+BEGIN_SRC emacs-lisp
-(require 'multiple-cursors)
-(setq mc/always-run-for-all t)
-(bind-key "C-+" 'mc/mark-next-like-this)
-(bind-key "C--" 'mc/mark-previous-like-this)
-(bind-key "C->" 'mc/mark-all-like-this)
-;; (bind-key "" 'mc/mark-all-in-region-regexp)
-;; (bind-key "" 'mc/edit-lines)
-
-#+END_SRC
-
-* Mutli Term
-#+BEGIN_SRC emacs-lisp
-(require 'term)
-
-(defun term-toggle-mode ()
-  "Toggles line-mode from/to char-mode."
-  (interactive)
-  (if (term-in-line-mode)
-      (term-char-mode)
-    (term-line-mode)))
-
-(define-key term-mode-map (kbd "C-c C-j") 'term-toggle-mode)
-(define-key term-mode-map (kbd "C-c C-k") 'term-toggle-mode)
-
-(define-key term-raw-map (kbd "C-c C-j") 'term-toggle-mode)
-(define-key term-raw-map (kbd "C-c C-k") 'term-toggle-mode)
-
-(setq multi-term-program "/bin/bash")
-(bind-key "C-c m t" 'multi-term)
-(bind-key "C-c m n" 'multi-term-next)
-(bind-key "C-c m p" 'multi-term-prev)
-#+END_SRC
-
-* Org
-#+BEGIN_SRC emacs-lisp
-(setq org-src-preserve-indentation 1)
-(setq org-latex-table-caption-above nil)
-;; command above will be: `(setq org-latex-caption-above nil)` in newer version.
-(setq org-clock-persist 'history)
-(setq org-agenda-files "~/Dropbox/orgfiles/")
-(org-clock-persistence-insinuate)
-
-;; (require 'ob-mongo)
-;; (require 'ob-sql-mode)
-
-(org-babel-do-load-languages 'org-babel-load-languages
-			     '((python . t)
-                               (C . t)))
-;; (mongo . t)
-;; (sql-mode . t)))
-
-(defun org-summary-todo (n-done n-not-done)
-  "Switch entry to DONE when all subentries are done, to TODO otherwise."
-  (let (org-log-done org-log-states)   ; turn off logging
-    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
-
-(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-#+END_SRC
-
-* Helm
-#+BEGIN_SRC emacs-lisp
-(require 'helm-config)
-(bind-key "M-x" 'helm-M-x)
-(bind-key "C-x C-f" 'helm-find-files)
-(bind-key "C-x M-s" 'helm-swoop)
-(bind-key "C-x M-g" 'helm-do-grep-ag)
-(bind-key "C-c C-<SPC>" 'helm-mark-ring)
-#+END_SRC
-
-* Projectile
-#+BEGIN_SRC emacs-lisp
-(require 'projectile)
-
-(defun cond-switch-to-buffer()
-  (interactive)
-  (if (projectile-project-p)
-      (projectile-switch-to-buffer)
-    (helm-buffers-list)))
-
-(bind-key "C-x b" 'cond-switch-to-buffer)
-#+END_SRC
-
-* Helm Projectile
-#+BEGIN_SRC emacs-lisp
-(require 'helm-projectile)
-;;(helm-projectile-on)
-
-;; helm-projectile-find-file doesn't support create file
-;; (defun resolve-find-file ()
-;;   (interactive)
-;;   (if (projectile-project-p)
-;;       (helm-projectile-find-file)
-;;     (helm-find-files nil)))
-
-;; (bind-key "C-x C-f" 'resolve-find-file)
-#+END_SRC
-
-* Yasnippet
-#+BEGIN_SRC emacs-lisp
-(require 'yasnippet)
-(yas-global-mode 1)
-#+END_SRC
+#+STARTUP: showeverything
 
 * Ace
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
 #+BEGIN_SRC emacs-lisp
 ;;(bind-key "C-c a w" 'ace-window)
 (bind-key "C-x o" 'ace-window)
@@ -278,7 +15,56 @@
 (bind-key "C-x w" 'ace-swap-window)
 #+END_SRC
 
+* C Mode
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq c-default-style "k&r" c-basic-offset 4 tab-width 4)
+#+END_SRC
+
+* Cosmetics
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'spacegray t)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (blink-cursor-mode -1)
+  (global-linum-mode 1)
+  (column-number-mode 1)
+  (which-function-mode 1)
+  (visual-line-mode 1)
+  (display-time-mode 1)
+  (global-hl-line-mode 1)
+  ;; (toggle-frame-fullscreen)
+  ;; (nyan-mode 1)
+#+END_SRC
+
+* Custom
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+  ;; (load "~/.emacs.d/custom.el")
+  (add-to-list 'load-path "~/.emacs.d/lisp/org-scaffold")
+  ;; (add-to-list 'load-path "~/.emacs.d/lisp/ob-mongo")
+#+END_SRC
+
+* Default Major Mode
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+;; (setq-default major-mode 'org-mode)
+#+END_SRC
+
 * Dired
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
 #+BEGIN_SRC emacs-lisp
 (setq dired-listing-switches "--group-directories-first -al")
 (setq dired-dwim-target t)
@@ -287,7 +73,89 @@
 	    (dired-hide-details-mode 1)))
 #+END_SRC
 
-* Ibuffer
+* Enabled commands
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+#+END_SRC
+
+* Font
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'default-frame-alist
+             '(font . "Monospace"))
+#+END_SRC
+
+* Flyspell
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(bind-key "C-c f" 'flymake-popup-current-error-menu)
+#+END_SRC
+
+* Helm
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(require 'helm-config)
+(bind-key "M-x" 'helm-M-x)
+(bind-key "C-x M-f" 'helm-find-files)
+(bind-key "C-x M-s" 'helm-swoop)
+(bind-key "C-x M-g" 'helm-do-grep-ag)
+(bind-key "C-c C-<SPC>" 'helm-mark-ring)
+#+END_SRC
+
+* Helm Projectile
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+;; (require 'helm-projectile)
+;; (helm-projectile-on)
+
+;; helm-projectile-find-file doesn't support create file
+;; (defun resolve-find-file ()
+;;   (interactive)
+;;   (if (projectile-project-p)
+;;       (helm-projectile-find-file)
+;;     (helm-find-files nil)))
+
+;; (bind-key "C-x C-f" 'resolve-find-file)
+#+END_SRC
+
+* Highlight Chars
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+;; (require 'highlight-chars)
+;; (defun my-highlight-settings ()
+;;   (if (not hc-highlight-trailing-whitespace-p)
+;;       (hc-toggle-highlight-trailing-whitespace)))
+;; (add-hook 'python-mode-hook 'my-highlight-settings)
+#+END_SRC
+
+* HTML Mode
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+(add-hook 'sgml-mode-hook 'zencoding-mode)
+(add-hook 'sgml-mode-hook 'sgml-electric-tag-pair-mode)
+#+END_SRC
+
+* IBuffer
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
 #+BEGIN_SRC emacs-lisp
 (setq my-filter-groups
       '(("org" (mode . org-mode))
@@ -328,60 +196,348 @@
 (bind-key "C-x C-b" 'refresh-ibuffer)
 #+END_SRC
 
+* Indenting
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+END_SRC
+
+* Info
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'Info-default-directory-list "~/info")
+#+END_SRC
+
+* Init Buffers
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+(defun init-default-buffers ()
+  (interactive)
+  (ibuffer)
+  (multi-term))
+
+(bind-key "C-c i" 'init-default-buffers)
+#+END_SRC
+
+* JS Mode
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js-mode))
+
+(add-hook 'js-mode-hook 'js2-minor-mode)
+
+(setq js2-pretty-multiline-declarations nil
+      js2-mode-show-parse-errors nil
+      js2-mode-show-strict-warnings nil)
+#+END_SRC
+
+* Key Bindings
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-?" 'backward-delete-char)
+  (bind-key "M-?" 'backward-kill-word)
+  (bind-key "C-c d w" 'delete-trailing-whitespace)
+  (bind-key "C-c p k" 'describe-personal-keybindings)
+  (bind-key "C-c s" 'switch-to-buffer)
+  (bind-key "C-c l" 'org-store-link)
+  ;; (bind-key "C-c a" 'org-agenda)
+  ;; (bind-key "C-c c" 'org-capture)
+
+  (defun find-config-file ()
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+
+  (bind-key "C-c o n f" 'find-config-file)
+
+  (defun find-snippets-dir ()
+    (interactive)
+    (find-file "~/.emacs.d/snippets/"))
+
+  (bind-key "C-c C-s n i p" 'find-snippets-dir)
+
+  (defun scroll-down-in-place (n)
+    (interactive "p")
+    (previous-line n)
+    (unless (eq (window-start) (point-min))
+      (scroll-down n)))
+
+  (bind-key "M-p" 'scroll-down-in-place)
+
+  (defun scroll-up-in-place (n)
+    (interactive "p")
+    (next-line n)
+    (unless (eq (window-end) (point-max))
+      (scroll-up n)))
+
+  (bind-key "M-n" 'scroll-up-in-place)
+
+  (defun delete-trailing-whitespace-and-save-buffer ()
+    (interactive)
+    (delete-trailing-whitespace)
+    (save-buffer))
+
+  (bind-key "C-x C-s" 'delete-trailing-whitespace-and-save-buffer)
+
+  (defun highlight-first-person (unhighlightp)
+    (interactive "P")
+    (let ((first-person-regex "\\b\\([iI]\\('\\([md]\\|ve\\|ll\\)\\)?\\|[mM][ey]\\)\\b"))
+      (if unhighlightp
+	  (unhighlight-regexp first-person-regex)
+	(highlight-regexp first-person-regex 'hi-yellow))))
+
+  (bind-key "C-c h f p" 'highlight-first-person)
+
+#+END_SRC
+
+* Lorem ipsum
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+(lorem-ipsum-use-default-bindings)
+#+END_SRC
+
 * Magit
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
 #+BEGIN_SRC emacs-lisp
 (bind-key "C-x G" 'magit-status)
 #+END_SRC
+
+* Messages
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq-default message-log-max 100)
+#+END_SRC
+
+* Mode Hooks
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook 'subword-mode)
+;; (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+#+END_SRC
+
+* Movements
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(bind-key "<left>" 'windmove-left)
+(bind-key "<right>" 'windmove-right)
+(bind-key "<up>" 'windmove-up)
+(bind-key "<down>" 'windmove-down)
+(winner-mode 1)
+#+END_SRC
+
+* Mulitple Cursors
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(require 'multiple-cursors)
+(setq mc/always-run-for-all t)
+(bind-key "C-+" 'mc/mark-next-like-this)
+(bind-key "C--" 'mc/mark-previous-like-this)
+(bind-key "C->" 'mc/mark-all-like-this)
+;; (bind-key "" 'mc/mark-all-in-region-regexp)
+;; (bind-key "" 'mc/edit-lines)
+
+#+END_SRC
+
+* Mutli Term
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+(require 'term)
+
+(defun term-toggle-mode ()
+  "Toggles line-mode from/to char-mode."
+  (interactive)
+  (if (term-in-line-mode)
+      (term-char-mode)
+    (term-line-mode)))
+
+(define-key term-mode-map (kbd "C-c C-j") 'term-toggle-mode)
+(define-key term-mode-map (kbd "C-c C-k") 'term-toggle-mode)
+
+(define-key term-raw-map (kbd "C-c C-j") 'term-toggle-mode)
+(define-key term-raw-map (kbd "C-c C-k") 'term-toggle-mode)
+
+(setq multi-term-program "/bin/bash")
+(bind-key "C-c m t" 'multi-term)
+(bind-key "C-c m n" 'multi-term-next)
+(bind-key "C-c m p" 'multi-term-prev)
+#+END_SRC
+
+* Org
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+  (setq org-directory "~/Dropbox/orgfiles")
+  (setq org-src-preserve-indentation 1)
+  (setq org-latex-table-caption-above nil)
+  ;; command above will be: `(setq org-latex-caption-above nil)` in newer version.
+  (setq org-clock-persist 'history)
+  (setq org-agenda-files "~/Dropbox/orgfiles")
+
+  (org-clock-persistence-insinuate)
+
+  ;; (require 'ob-mongo)
+  (require 'org-scaffold)
+  (require 'ob-sql-mode)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     (shell . t)
+     (js . t)
+     ;; (sh . t)
+     ;; (mongo . t)
+     ;; (sql-mode . t)
+     (emacs-lisp . t)
+     (C . t)))
+
+  (defun org-summary-todo (n-done n-not-done)
+    "Switch entry to DONE when all subentries are done, to TODO otherwise."
+    (let (org-log-done org-log-states)   ; turn off logging
+      (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+  (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+  (add-hook 'org-mode-hook 'auto-fill-mode)
+
+  ;; (require 'org-projectile)
+  ;; (setq org-projectile-projects-file "~/Dropbox/orgfiles/projects.org")
+  ;; (push (org-projectile-project-todo-entry) org-capture-templates)
+  ;; (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+#+END_SRC
+
 * Paredit
+:PROPERTIES:
+:header-args: :tangle no
+:END:
 #+BEGIN_SRC emacs-lisp
 (bind-key "C-c k" 'paredit-kill)
 #+END_SRC
-* Mode Hooks
+
+* Pretty Lambda
+:PROPERTIES:
+:header-args: :tangle no
+:END:
 #+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook 'subword-mode)
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+(pretty-lambda-for-modes)
 #+END_SRC
-* Key Bindings
+
+* Projectile
+:PROPERTIES:
+:header-args: :tangle no
+:END:
 #+BEGIN_SRC emacs-lisp
-(bind-key "C-?" 'backward-delete-char)
-(bind-key "M-?" 'backward-kill-word)
-(bind-key "C-c d w" 'delete-trailing-whitespace)
-(bind-key "C-c p k" 'describe-personal-keybindings)
-(bind-key "C-c s" 'switch-to-buffer)
+(require 'projectile)
 
-(defun find-config-file ()
+(defun cond-switch-to-buffer()
   (interactive)
-  (find-file "~/.emacs.d/config.org"))
+  (if (projectile-project-p)
+      (projectile-switch-to-buffer)
+    (helm-buffers-list)))
 
-(bind-key "C-c o n f" 'find-config-file)
+(bind-key "C-x b" 'cond-switch-to-buffer)
+#+END_SRC
 
-(defun find-snippets-dir ()
-  (interactive)
-  (find-file "~/.emacs.d/snippets/"))
+* Python Mode
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+  (setq python-command "python3.6")
+  (add-hook 'python-mode-hook 'elpy-mode)
+  ;; (require 'flymake-python-pyflakes)
+  ;; (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+  ;; (setq flymake-python-pyflakes-executable "flake8")
 
-(bind-key "C-c C-s n i p" 'find-snippets-dir)
+  ;; (add-hook 'python-mode-hook
+  ;; 	  (lambda ()
+  ;; 	    (setq python-indent-offset 4)))
+  ;; (require 'ein)
+  ;; (require 'ein-loaddefs)
+  ;; (require 'ein-notebook)
+  ;; (require 'ein-subpackages)
+#+END_SRC
 
-(defun scroll-down-in-place (n)
-  (interactive "p")
-  (previous-line n)
-  (unless (eq (window-start) (point-min))
-    (scroll-down n)))
+* Rainbow
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC
+(bind-key "C-c r" 'rainbow-mode)
+#+END_SRC
 
-(bind-key "M-p" 'scroll-down-in-place)
+* Scratch
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+(unkillable-scratch)
+#+END_SRC
 
-(defun scroll-up-in-place (n)
-  (interactive "p")
-  (next-line n)
-  (unless (eq (window-end) (point-max))
-    (scroll-up n)))
+* Sounds
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq ring-bell-function 'ignore)
+#+END_SRC
 
-(bind-key "M-n" 'scroll-up-in-place)
+* Startup
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t)
+#+END_SRC
 
-(defun delete-trailing-whitespace-and-save-buffer ()
-  (interactive)
-  (delete-trailing-whitespace)
-  (save-buffer))
+* Text
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq sentence-end-double-space nil)
+;; (add-hook 'text-mode-hook
+;;               (lambda ()
+;;                 (when (y-or-n-p "Auto Fill mode? ")
+;;                   (turn-on-auto-fill)
+;;                   (setq fill-column 80))))
+#+END_SRC
 
-(bind-key "C-x C-s" 'delete-trailing-whitespace-and-save-buffer)
+* Yasnippet
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(require 'yasnippet)
+(yas-global-mode 1)
+#+END_SRC
 
+* Yes/No
+:PROPERTIES:
+:header-args: :tangle yes
+:END:
+#+BEGIN_SRC emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
